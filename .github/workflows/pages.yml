@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm run build:library
+      - run: node scripts/generate-manifest.mjs
 
       - uses: actions/configure-pages@v5
 
@@ -41,3 +41,4 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+

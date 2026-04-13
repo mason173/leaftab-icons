@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:library": "node scripts/build-library.mjs"
+    "generate": "node scripts/generate-manifest.mjs"
   }
 }
+

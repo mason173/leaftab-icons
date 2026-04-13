@@ -1,50 +1,34 @@
-# LeafTab Icon Library
+# LeafTab Icon Library Template (GitHub Pages)
 
-这个目录现在使用一套单一事实来源的数据结构，不再依赖临时文件夹拼装数据。
+把这个目录里的文件复制到一个新的 GitHub 仓库（例如 `leaftab-icons`）即可快速搭建图标库并自动部署到 GitHub Pages。
 
-## Canonical 结构
+## 目录结构
 
-```text
+```
 leaftab-icons/
-  shapes/
-    github.com_232128.svg
-    zhihu.com_0084FF.svg
-  icon-library.json
+  svgs/
+    google.com.svg
+    zhihu.com.svg
   scripts/
-    build-library.mjs
+    generate-manifest.mjs
+  manifest.json          # 自动生成
   package.json
   .github/workflows/pages.yml
 ```
 
-`shapes/` 是主要数据源，推荐文件名格式：
+## 使用方式
 
-```text
-<domain>_<RRGGBB>.svg
-```
+1. 新建 GitHub 仓库：`leaftab-icons`（Public）
+2. 把本目录内容复制到仓库根目录
+3. 往 `svgs/` 放你的 SVG 图标（文件名建议用可注册域：`google.com.svg`）
+4. 推送到 GitHub
+5. 仓库 Settings → Pages：
+   - Source: **GitHub Actions**
+6. 每次 push，Actions 会自动生成 `manifest.json` 并部署到 Pages
 
-例如：
+部署成功后，地址类似：
 
-```text
-www.wps.cn_FE3E53.svg
-github.com_232128.svg
-```
+`https://{username}.github.io/leaftab-icons/`
 
-文件名里的域名会变成图标 key，色值会自动变成 `defaultColor`。`icon-library.json` 是构建生成物，不需要日常手改。文件名必须使用这个格式；不带色值后缀的 SVG 不会被接受。每个图标条目至少包含：
+LeafTab 管理员面板里填入上面的地址即可。
 
-```json
-{
-  "mode": "shape-color",
-  "shapePath": "shapes/github.com_232128.svg",
-  "defaultColor": "#232128"
-}
-```
-
-`defaultColor` 只是官方图标的默认品牌色来源，不影响应用里用户自己的颜色覆盖。
-
-## 命令
-
-```bash
-npm run build:library
-```
-
-根据 `shapes/` 自动生成或刷新 `icon-library.json`，并补齐 `sha256`、`updatedAt` 和 `generatedAt`。
